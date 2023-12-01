@@ -16,7 +16,7 @@ import java.util.List;
  *
  */
 public class UserDAO {
-    private String jdbcURL = "jdbc:mysql://192.168.0.110:3306/orkhanJ?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://192.168.0.110:3306/orkhan?useSSL=false";
     private String jdbcUsername = "orkhan";
     private String jdbcPassword = "1234Orkhan!";
 
