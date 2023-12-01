@@ -13,7 +13,7 @@
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark"
-         style="background-color: tomato">
+         style="background-color: cadetblue">
 
         <ul class="navbar-nav">
             <li><a href="<%=request.getContextPath()%>/list"
