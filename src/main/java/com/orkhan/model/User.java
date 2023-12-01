@@ -1,4 +1,4 @@
-package com.orkhan.model;
+package main.java.com.orkhan.model;
 
 public class User {
     protected int id;
