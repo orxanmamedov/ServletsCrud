@@ -1,7 +1,9 @@
-package main.java.com.orkhan.web;
+package com.orkhan.web;
 
-import main.java.com.orkhan.model.User;
-import main.java.com.orkhan.dao.UserDAO;
+
+
+import com.orkhan.dao.UserDAO;
+import com.orkhan.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

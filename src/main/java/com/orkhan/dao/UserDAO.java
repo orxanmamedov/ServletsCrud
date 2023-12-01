@@ -1,6 +1,8 @@
-package main.java.com.orkhan.dao;
+package com.orkhan.dao;
 
-import main.java.com.orkhan.model.User;
+
+
+import com.orkhan.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
