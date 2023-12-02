@@ -51,6 +51,7 @@ public class UserDAO {
         System.out.println(INSERT_USERS_SQL);
         // try-with-resource statement will auto close the connection.
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getCountry());
@@ -67,6 +68,7 @@ public class UserDAO {
         try (Connection connection = getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
@@ -94,6 +96,7 @@ public class UserDAO {
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -115,6 +118,7 @@ public class UserDAO {
     public boolean deleteUser(int id) throws SQLException {
         boolean rowDeleted;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             statement.setInt(1, id);
             rowDeleted = statement.executeUpdate() > 0;
         }
@@ -124,6 +128,7 @@ public class UserDAO {
     public boolean updateUser(User user) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getCountry());
