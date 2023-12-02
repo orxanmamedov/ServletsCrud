@@ -60,7 +60,6 @@
 									<input type="hidden" name="id" value="${user.id}" />
 									<button type="submit" class="btn btn-link">Edit</button>
 								</form>
-								&nbsp;&nbsp;&nbsp;&nbsp;
 								<form method="post" action="<%=request.getContextPath()%>/delete">
 									<input type="hidden" name="id" value="${user.id}" />
 									<button type="submit" class="btn btn-link">Delete</button>
