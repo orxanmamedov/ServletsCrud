@@ -56,16 +56,17 @@
 							<td><c:out value="${user.email}" /></td>
 							<td><c:out value="${user.country}" /></td>
 							<td>
-								<form method="get" action="<%=request.getContextPath()%>/edit" style="display: inline-block;">
+								<form method="get" action="<%=request.getContextPath()%>/edit">
 									<input type="hidden" name="id" value="${user.id}" />
-									<button type="submit" class="btn btn-link">Edit</button>
+									<button type="submit" class="btn btn-link" style="display: inline-block;">Edit</button>
 								</form>
 
-								<form method="post" action="<%=request.getContextPath()%>/delete" style="display: inline-block;">
+								<form method="post" action="<%=request.getContextPath()%>/delete">
 									<input type="hidden" name="id" value="${user.id}" />
-									<button type="submit" class="btn btn-link">Delete</button>
+									<button type="submit" class="btn btn-link" style="display: inline-block;">Delete</button>
 								</form>
 							</td>
+
 
 						</tr>
 					</c:forEach>
