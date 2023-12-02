@@ -47,6 +47,9 @@ public class UserServlet extends HttpServlet {
                 case "/update":
                     updateUser(request, response);
                     break;
+                case "/edit":
+                    showEditForm(request, response);
+                    break;
             }
 
         }catch (SQLException ex) {
@@ -63,9 +66,7 @@ public class UserServlet extends HttpServlet {
                 case "/new":
                     showNewForm(request, response);
                     break;
-                case "/edit":
-                    showEditForm(request, response);
-                    break;
+
                 default:
                     listUser(request, response);
                     break;
