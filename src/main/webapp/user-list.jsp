@@ -56,15 +56,16 @@
 							<td><c:out value="${user.email}" /></td>
 							<td><c:out value="${user.country}" /></td>
 							<td>
-								<form method="get" action="<%=request.getContextPath()%>/edit" style="display: inline-block; margin-right: 10px;">
+								<form method="get" action="<%=request.getContextPath()%>/edit" style="display: inline-block;">
 									<input type="hidden" name="id" value="${user.id}" />
-									<button type="submit" class="btn btn-link" style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none; text-decoration: none; display: inline-block;">Edit</button>
+									<input type="submit" class="btn btn-link" value="Edit" style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none; text-decoration: none; display: inline-block;">
 								</form>
 								<form method="post" action="<%=request.getContextPath()%>/delete" style="display: inline-block;">
 									<input type="hidden" name="id" value="${user.id}" />
 									<button type="submit" class="btn btn-link" style="background-color: #f44336; color: white; padding: 5px 10px; border: none; text-decoration: none; display: inline-block;">Delete</button>
 								</form>
 							</td>
+
 
 
 
