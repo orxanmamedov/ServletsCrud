@@ -7,7 +7,15 @@
         version="4.0">
   <display-name>Archetype Created Web Application</display-name>
 
+  <filter>
+    <filter-name>Utf8Filter</filter-name>
+    <filter-class>com.orkhan.filter.Utf8Filter</filter-class>
+  </filter>
 
+  <filter-mapping>
+    <filter-name>Utf8Filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
 
 
