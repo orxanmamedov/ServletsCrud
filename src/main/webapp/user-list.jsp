@@ -56,7 +56,7 @@
 							<td><c:out value="${user.email}" /></td>
 							<td><c:out value="${user.country}" /></td>
 							<td>
-								<form method="post" action="<%=request.getContextPath()%>/edit">
+								<form method="get" action="<%=request.getContextPath()%>/edit">
 									<input type="hidden" name="id" value="${user.id}" />
 									<button type="submit" class="btn btn-link">Edit</button>
 								</form>
