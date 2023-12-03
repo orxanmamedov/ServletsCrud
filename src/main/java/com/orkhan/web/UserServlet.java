@@ -66,8 +66,11 @@ public class UserServlet extends HttpServlet {
                 case "/edit":
                     showEditForm(request, response);
                     break;
-                default:
+                case "/list":
                     listUser(request, response);
+                    break;
+                default:
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Invalid URL");
                     break;
             }
         } catch (SQLException ex) {
