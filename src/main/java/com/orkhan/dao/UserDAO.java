@@ -6,6 +6,7 @@ import com.orkhan.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -38,10 +39,10 @@ public class UserDAO {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         return connection;
@@ -49,13 +50,11 @@ public class UserDAO {
 
     public void insertUser(User user) throws SQLException {
         System.out.println(INSERT_USERS_SQL);
-        // try-with-resource statement will auto close the connection.
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getCountry());
-            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -64,17 +63,11 @@ public class UserDAO {
 
     public User selectUser(int id) {
         User user = null;
-        // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             preparedStatement.setInt(1, id);
-            System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
@@ -87,21 +80,13 @@ public class UserDAO {
         return user;
     }
 
-    public List < User > selectAllUsers() {
-
-        // using try-with-resources to avoid closing resources (boiler plate code)
+    public List<User> selectAllUsers() {
         List < User > users = new ArrayList < > ();
-        // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
 
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -116,27 +101,26 @@ public class UserDAO {
     }
 
     public boolean deleteUser(int id) throws SQLException {
-        boolean rowDeleted;
+        boolean isRowDeleted;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
-            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             statement.setInt(1, id);
-            rowDeleted = statement.executeUpdate() > 0;
+            isRowDeleted = statement.executeUpdate() > 0;
         }
-        return rowDeleted;
+        return isRowDeleted;
     }
 
     public boolean updateUser(User user) throws SQLException {
-        boolean rowUpdated;
+        boolean isRowUpdated;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
             connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getCountry());
             statement.setInt(4, user.getId());
-
-            rowUpdated = statement.executeUpdate() > 0;
+            isRowUpdated = statement.executeUpdate() > 0;
         }
-        return rowUpdated;
+        return isRowUpdated;
     }
 
     private void printSQLException(SQLException ex) {
